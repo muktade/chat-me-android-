@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "726524219782",
+    "firebase_url": "https://chat-me-e4720-default-rtdb.firebaseio.com",
+    "project_id": "chat-me-e4720",
+    "storage_bucket": "chat-me-e4720.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726524219782:android:dc60edc2754052c65cdc07",
+        "android_client_info": {
+          "package_name": "com.example.chatme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726524219782-kmijrfecnqhmvqqlttt7o1hk4bi8k34m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVKHUNIQDNoOyJkyvPE0jabS41nqpArpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726524219782-kmijrfecnqhmvqqlttt7o1hk4bi8k34m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726524219782:android:f74cc2430d5810d25cdc07",
+        "android_client_info": {
+          "package_name": "com.sameetasadullah.i180479_180531"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726524219782-kmijrfecnqhmvqqlttt7o1hk4bi8k34m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVKHUNIQDNoOyJkyvPE0jabS41nqpArpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726524219782-kmijrfecnqhmvqqlttt7o1hk4bi8k34m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
