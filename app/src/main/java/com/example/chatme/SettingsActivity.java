@@ -118,7 +118,7 @@ public class SettingsActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             database.getReference().child("Users")
                                     .child(FirebaseAuth.getInstance().getUid())
-                                    .child("profilepic").setValue(uri.toString());
+                                    .child("profilePic").setValue(uri.toString());
                             Toast.makeText(SettingsActivity.this, "Profile Pic add", Toast.LENGTH_SHORT).show();
                         }
                     });
