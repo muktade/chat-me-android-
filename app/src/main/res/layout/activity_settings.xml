@@ -33,7 +33,7 @@
             android:layout_height="120dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/about"
+            app:srcCompat="@drawable/about_us"
             app:tint="@color/white" />
 
         <ImageView
@@ -139,7 +139,7 @@
             android:drawableLeft="@drawable/facebook"
             android:drawablePadding="15dp"
             android:padding="10dp"
-            android:text="TextView"
+            android:text="Privacy Policy"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -152,7 +152,7 @@
             android:drawableLeft="@drawable/facebook"
             android:drawablePadding="15dp"
             android:padding="10dp"
-            android:text="TextView"
+            android:text="About Us"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -165,7 +165,7 @@
             android:drawableLeft="@drawable/facebook"
             android:drawablePadding="15dp"
             android:padding="10dp"
-            android:text="TextView"
+            android:text="Invite Friends"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -178,7 +178,7 @@
             android:drawableLeft="@drawable/facebook"
             android:drawablePadding="15dp"
             android:padding="10dp"
-            android:text="TextView"
+            android:text="Notification"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -191,7 +191,7 @@
             android:drawableLeft="@drawable/facebook"
             android:drawablePadding="15dp"
             android:padding="10dp"
-            android:text="TextView"
+            android:text="Help"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
