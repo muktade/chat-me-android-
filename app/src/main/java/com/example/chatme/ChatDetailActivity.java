@@ -42,7 +42,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         String profilePic = getIntent().getStringExtra("profilePic");
 
         binding.tUserName.setText(userName);
-        Picasso.get().load(profilePic).placeholder(R.drawable.about_us).into(binding.profileImage);
+        Picasso.get().load(profilePic).placeholder(R.drawable.about).into(binding.profileImage);
 
 
         binding.btnBack.setOnClickListener(new View.OnClickListener() {

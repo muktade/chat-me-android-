@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.setting:
-                Toast.makeText(this, "Setting Activity", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.logout:
                 auth.signOut();
@@ -60,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.groupChat:
-                Intent intent1 = new Intent(this, GroupChatActivity.class);
-                startActivity(intent1);
+                Intent intent2 = new Intent(this, GroupChatActivity.class);
+                startActivity(intent2);
                 break;
         }
         return super.onOptionsItemSelected(item);
