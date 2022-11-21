@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ public class SettingsActivity extends AppCompatActivity {
     FirebaseDatabase database;
     FirebaseAuth auth;
     FirebaseStorage storage;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,9 @@ public class SettingsActivity extends AppCompatActivity {
         binding = ActivitySettingsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
+        dialog = new ProgressDialog(SettingsActivity.this);
+        dialog.setTitle("Please Wait...");
+        dialog.setMessage("We're trying to save your information.");
 
         ////
         database = FirebaseDatabase.getInstance();
@@ -55,6 +61,8 @@ public class SettingsActivity extends AppCompatActivity {
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.show();
+
                 String userName = binding.tUserName.getText().toString();
                 String status = binding.tStatus.getText().toString();
 
@@ -64,7 +72,10 @@ public class SettingsActivity extends AppCompatActivity {
 
                 database.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
                         .updateChildren(obj);
+                dialog.dismiss();
                 Toast.makeText(SettingsActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
