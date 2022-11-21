@@ -16,7 +16,11 @@ import com.example.chatme.model.Messages;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class ChatAdapter extends RecyclerView.Adapter{
 
@@ -96,11 +100,19 @@ public class ChatAdapter extends RecyclerView.Adapter{
             }
         });
 
+        Long time = msg.getTimesTamp();
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTimeInMillis(time);
+        SimpleDateFormat tm = new SimpleDateFormat("hh:mm:ss", Locale.US);
+        String an = tm.format(calendar.getTime());
+
         if(holder.getClass()== SenderViewHolder.class){
             ((SenderViewHolder)holder).senderMsg.setText(msg.getMessage());
+            ((SenderViewHolder)holder).senderTime.setText(an);
 
         }else {
             ((ReceiverViewHolder)holder).receiverMsg.setText(msg.getMessage());
+            ((ReceiverViewHolder)holder).receiverTime.setText(an);
         }
     }
 
