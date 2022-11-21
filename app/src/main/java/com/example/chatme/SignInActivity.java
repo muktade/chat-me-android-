@@ -20,9 +20,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -138,7 +140,12 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Log.d("TAG", "sign");
+                            Log.d("TAG", "signInCredential: success");
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            //updateUI(firebaseUser);
+                        }else {
+                            Log.w("TAG", "signInCredential: failure", task.getException());
+
                         }
                     }
                 });
