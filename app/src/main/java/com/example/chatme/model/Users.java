@@ -1,7 +1,15 @@
 package com.example.chatme.model;
 
 public class Users {
-    String userName, email, profilePic, password, userId, lastMessage;
+    String userName, email, profilePic, password, userId, lastMessage, status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Users() {
     }
@@ -12,13 +20,14 @@ public class Users {
         this.password = password;
     }
 
-    public Users(String userName, String email, String profilePic, String password, String userId, String lastMessage) {
+    public Users(String userName, String email, String profilePic, String password, String userId, String lastMessage, String status) {
         this.userName = userName;
         this.email = email;
         this.profilePic = profilePic;
         this.password = password;
         this.userId = userId;
         this.lastMessage = lastMessage;
+        this.status = status;
     }
 
     public String getUserName() {

@@ -1,6 +1,8 @@
 package com.example.chatme.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.chatme.R;
 import com.example.chatme.model.Messages;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -19,8 +22,16 @@ public class ChatAdapter extends RecyclerView.Adapter{
 
     ArrayList<Messages> messages;
     Context context;
-    final int SENDER_VIEW_TYPE=1;
-    final int RECEIVER_VIEW_TYPE = 2;
+    String recId;
+
+    int SENDER_VIEW_TYPE=1;
+    int RECEIVER_VIEW_TYPE = 2;
+
+    public ChatAdapter(ArrayList<Messages> messages, Context context, String recId) {
+        this.messages = messages;
+        this.context = context;
+        this.recId = recId;
+    }
 
     public ChatAdapter(ArrayList<Messages> list, Context context) {
         this.messages = list;
@@ -57,6 +68,34 @@ public class ChatAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         Messages msg = messages.get(position);
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Delete")
+                        .setMessage("Are you sure to Delete this Message?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                String senderRoom = FirebaseAuth.getInstance().getUid() + recId;
+                                database.getReference().child("Chats").child(senderRoom)
+                                        .child(msg.getMessageId())
+                                        .setValue(null);
+
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).show();
+
+                return false;
+            }
+        });
+
         if(holder.getClass()== SenderViewHolder.class){
             ((SenderViewHolder)holder).senderMsg.setText(msg.getMessage());
 

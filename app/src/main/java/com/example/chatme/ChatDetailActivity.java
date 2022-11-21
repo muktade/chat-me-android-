@@ -1,12 +1,12 @@
 package com.example.chatme;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.chatme.adapters.ChatAdapter;
 import com.example.chatme.databinding.ActivityChatDetailBinding;
@@ -27,6 +27,8 @@ public class ChatDetailActivity extends AppCompatActivity {
     ActivityChatDetailBinding binding;
     private FirebaseDatabase database;
     private FirebaseAuth auth;
+    final ArrayList<Messages> messageModels = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +55,9 @@ public class ChatDetailActivity extends AppCompatActivity {
             }
         });
 
-        final ArrayList<Messages> messageModels = new ArrayList<>();
-        final ChatAdapter chatAdapter = new ChatAdapter(messageModels, this);
+        final ChatAdapter chatAdapter = new ChatAdapter(messageModels, this, receiverId);
         binding.chatRecyclerView.setAdapter(chatAdapter);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.chatRecyclerView.setLayoutManager(layoutManager);
 
@@ -67,12 +69,12 @@ public class ChatDetailActivity extends AppCompatActivity {
         database.getReference().child("Chats")
                 .child(senderRoom)
                 .addValueEventListener(new ValueEventListener() {
-
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         messageModels.clear();
                         for(DataSnapshot ds: snapshot.getChildren()){
                             Messages msg = ds.getValue(Messages.class);
+                            msg.setMessageId(ds.getKey());
                             messageModels.add(msg);
                         }
                         chatAdapter.notifyDataSetChanged();
@@ -113,7 +115,6 @@ public class ChatDetailActivity extends AppCompatActivity {
                         });
             }
         });
-
 
 
     }

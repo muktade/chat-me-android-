@@ -1,5 +1,6 @@
 package com.example.chatme;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,12 +11,19 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.chatme.databinding.ActivitySettingsBinding;
+import com.example.chatme.model.Users;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -44,6 +52,42 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        binding.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userName = binding.tUserName.getText().toString();
+                String status = binding.tStatus.getText().toString();
+
+                HashMap<String, Object> obj = new HashMap<>();
+                obj.put("userName", userName);
+                obj.put("status", status);
+
+                database.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
+                        .updateChildren(obj);
+                Toast.makeText(SettingsActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        database.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+                        Picasso.get()
+                                .load(users.getProfilePic())
+                                .placeholder(R.drawable.about)
+                                .into(binding.profileImage);
+                        binding.tStatus.setText(users.getStatus());
+                        binding.tUserName.setText(users.getUserName());
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
         binding.btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +112,16 @@ public class SettingsActivity extends AppCompatActivity {
             reference.putFile(sFile).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(SettingsActivity.this, "Upload Success", Toast.LENGTH_SHORT).show();
+
+                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            database.getReference().child("Users")
+                                    .child(FirebaseAuth.getInstance().getUid())
+                                    .child("profilepic").setValue(uri.toString());
+                            Toast.makeText(SettingsActivity.this, "Profile Pic add", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
         }
