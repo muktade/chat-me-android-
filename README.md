@@ -1,7 +1,6 @@
 # chat-me-android-
 <hr>
 <h2>About App</h2>
-<hr>
 <img src="app/src/main/app_image/1.JPG"/>
 <img src="app/src/main/app_image/2.JPG"/>
 <img src="app/src/main/app_image/3.JPG"/>
@@ -10,7 +9,6 @@
 <img src="app/src/main/app_image/7.JPG"/>
 <hr>
 <h2>How To Run</h2>
-<hr>
 <ol>
 <li>Clone Project</li>
 <li>Open the Project in your IDE</li>
